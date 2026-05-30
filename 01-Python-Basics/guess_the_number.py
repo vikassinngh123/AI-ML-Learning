@@ -9,6 +9,21 @@ Features: Input validation, score tracking, and dramatic timing effects
 
 import random
 import time
+import json
+import os
+
+SCORE_FILE = "highscores.json"
+
+def load_scores():
+    # If the file exists, load the scores. Otherwise, return default infinite scores.
+    if os.path.exists(SCORE_FILE):
+        with open(SCORE_FILE, "r") as f:
+            return json.load(f)
+    return {"user_vs_comp": float('inf'), "comp_vs_user": float('inf')}
+
+def save_scores(scores):
+    with open(SCORE_FILE, "w") as f:
+        json.dump(scores, f)
 
 def is_input_valid(mini=None,maxi=None,msg="input"):
   while True:
@@ -44,9 +59,9 @@ def Guess_game():
       computer_pick=random.randint(1,100)
 
       user_guess=is_input_valid(1,100,"Enter you guess(1-100) : ")
-      
+
       while user_guess!=computer_pick:
-        
+
         if user_guess>computer_pick :
           Score+=1
           print("Pick a lower number")
@@ -57,6 +72,13 @@ def Guess_game():
         user_guess=is_input_valid(1,100,"Enter you guess(1-100) : ")
 
       print(f"\nCongrats \nYou have guessed the number {computer_pick} in {Score} guesses")
+      scores = load_scores()
+      if Score < scores["user_vs_comp"]:
+          print(f"🏆 NEW HIGH SCORE! You beat the record for User V/s Computer!")
+          scores["user_vs_comp"] = Score
+          save_scores(scores)
+      else:
+          print(f"Current High Score to beat: {scores['user_vs_comp']} guesses.")
 
     # Gamemode Computer V/s User
     if pick_gamemode==2:
@@ -67,11 +89,10 @@ def Guess_game():
 
       computer_guess=random.randint(1,100)
       print(f"\nComputer has picked {computer_guess}")
-      min_bound=1
-      max_bound=100
-      
+
       while computer_guess!=user_pick_number:
-    
+        min_bound = 1
+        max_bound = 100
         if computer_guess>user_pick_number :
           computer_score+=1
           print("\nComputer pick a lower number")
@@ -91,6 +112,14 @@ def Guess_game():
           time.sleep(0.5)
 
       print(f"\nCongrats \n Computer has guessed the number {user_pick_number} in {computer_score} guesses")
+      scores = load_scores()
+      if computer_score < scores["comp_vs_user"]:
+          print(f" NEW HIGH SCORE! The computer set a new record!")
+          scores["comp_vs_user"] = computer_score
+          save_scores(scores)
+      else:
+          print(f"Computer's Best Score to beat: {scores['comp_vs_user']} guesses.")
+
 
     # Gamemode User_1 V/s User_2
     if pick_gamemode==3:
@@ -113,7 +142,7 @@ def Guess_game():
         if user_2_guess==user_1_pick:
           print(f"\nCongrats \nUser_2 has guessed the number {user_1_pick} in {user_2_score} guesses")
           break
-        
+
         if user_1_guess>user_2_pick:
           user_1_score+=1
           print("\nUser_1 pick a higher number")
