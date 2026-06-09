@@ -58,10 +58,13 @@ An extensive, multi-model optimization benchmark leveraging the Ames Housing Dat
   * K-Nearest Neighbors Regressor (CV $R^2$: `0.7916`)
   * Support Vector Regression (CV $R^2$: `0.6066`)
   * Random Forest Ensemble (`RandomizedSearchCV`, CV $R^2$: `0.8387`)
-  * **Champion Architecture:** Gradient Boosting Regressor (`RandomizedSearchCV`, CV $R^2$: `0.8732`)
+  * Gradient Boosting Regressor (`RandomizedSearchCV`, CV $R^2$: `0.8732`)
+* **Advanced Ensemble Engineering (Champion Architecture):** * Combined the top 3 base estimators (Gradient Boosting, Random Forest, Ridge) into advanced **Voting** and **Stacking** regressors.
+  * Extracted models into a top-level pipeline to process raw categorical text safely, utilizing `passthrough=True` with a `RidgeCV` meta-learner to dynamically weigh predictions against original structural features.
 * **Ultimate Testing & Leaderboard Deployment:**
-  * Tested the finalized Gradient Boosting Blueprint against unseen testing data, producing a final **Validation $R^2$ Score of 0.8977** (explains 89.77% of real-world variance) with an average absolute variation error (**MAE**) of only `$16,920.97`.
-  * Programmatically parsed Kaggle's hidden evaluation vectors (`test.csv`), generated predictions, mapped constraints alongside native index tracks (`Id`, `SalePrice`), and exported the output directly as an official leaderboard submission file (`submission_GB.csv`).
+  * Tested the finalized **Stacking Ensemble Blueprint** against unseen testing data, successfully breaking the 90% accuracy barrier with a **Validation $R^2$ Score of 0.9074**.
+  * Programmatically parsed Kaggle's hidden evaluation vectors (`test.csv`) to generate and export an official leaderboard submission (`submission_stacking_ensemble.csv`).
+  * **Global Leaderboard Result:** Achieved an official **RMSLE score of 0.1402**, placing the model competitively in the global rankings!
 
 ---
 
