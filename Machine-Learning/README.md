@@ -66,6 +66,18 @@ An extensive, multi-model optimization benchmark leveraging the Ames Housing Dat
   * Programmatically parsed Kaggle's hidden evaluation vectors (`test.csv`) to generate and export an official leaderboard submission (`submission_stacking_ensemble.csv`).
   * **Global Leaderboard Result:** Achieved an official **RMSLE score of 0.1402**, placing the model competitively in the global rankings!
 
+### 📈 5. Kaggle US Stock Returns Prediction ([US_Stock_Returns_kaggel_comp.ipynb](https://github.com/vikassinngh123/AI-ML-Learning/blob/main/Machine-Learning/US_Stock_Returns_kaggel_comp.ipynb))
+An end-to-end machine learning pipeline predicting 1-year US stock market returns based on corporate fundamentals for a Kaggle competition.
+* **High-Cardinality Categorical Engineering:**
+  * Bypassed standard One-Hot Encoding for 1,700+ unique stock tickers to prevent the "curse of dimensionality" and memory bloat.
+  * Implemented `TargetEncoder` (with smoothing) from the `category_encoders` library to map historical return biases directly into a single, highly predictive dense column.
+* **Custom Scikit-Learn Transformers:**
+  * Built a custom `StockDateFeatureExtractor` class integrated directly at the head of the `scikit-learn` Pipeline.
+  * Automatically parses raw text dates to extract financial quarters, calculate durations, and drop raw strings on the fly, ensuring zero pipeline crashes when passing untouched Kaggle test data (`test.csv`).
+* **Baseline Strategy & Evaluation:**
+  * Established a highly optimized **LightGBM (`LGBMRegressor`)** baseline submission to safely benchmark future ensemble and log-transformation experiments.
+  * Generated an official Kaggle leaderboard submission (`Stock_submission_LGB.csv`), successfully evaluating the pipeline architecture against RMSE constraints.
+
 ---
 
 ## 🚀 How to Run These Notebooks
