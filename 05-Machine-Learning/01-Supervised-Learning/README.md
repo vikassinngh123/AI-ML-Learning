@@ -1,4 +1,4 @@
-# Machine Learning & Predictive Modeling
+#  01 - Supervised Learning & Predictive Modeling
 
 This folder contains end-to-end **Supervised Machine Learning** projects focusing on Regression, Classification, Feature Selection, Hyperparameter Tuning, and production-grade Pipeline Architecture. The workflows transition from exploratory modeling to hyper-tuned ensembles, interactive model user interfaces, and model serialization.
 
