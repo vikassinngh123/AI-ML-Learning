@@ -8,7 +8,7 @@ Welcome to the Unsupervised Learning module! This directory focuses on machine l
 
 * **🛍️ Customer Segmentation (Mall Customers)** 
   * **File:** [`Mall_Customers_Clustering.ipynb`](Mall_Customers_Clustering.ipynb)
-  * **Overview:** Grouping retail customers based on annual income and spending scores to identify distinct target marketing profiles and hidden behavioral clusters.
+  * **Overview:** Grouping retail customers using a 4-dimensional K-Means model (Age, Gender, Annual Income, and Spending Score) with StandardScaler to identify distinct target marketing profiles and hidden behavioral clusters.
 
 ---
 
@@ -21,4 +21,5 @@ As this module grows, it will cover key unsupervised techniques including:
 * **Anomaly Detection:** Identifying outliers in unlabeled datasets
 
 ---
+
 > *Currently building and expanding this module with more datasets!*
