@@ -6,9 +6,9 @@ Welcome to the Unsupervised Learning module! This directory focuses on machine l
 
 ## 📁 Featured Projects
 
-* **🛍️ Customer Segmentation (Mall Customers)** 
-  * **File:** [`Mall_Customers_Clustering.ipynb`](Mall_Customers_Clustering.ipynb)
-  * **Overview:** Grouping retail customers using a 4-dimensional K-Means model (Age, Gender, Annual Income, and Spending Score) with StandardScaler to identify distinct target marketing profiles and hidden behavioral clusters.
+* ** Customer Segmentation (Mall Customers) **
+  **File:** [Mall_Customers_Clustering.ipynb](Mall_Customers_Clustering.ipynb)
+  **Overview:** Grouping retail customers using a 4-dimensional K-Means model (Age, Gender, Annual Income, and Spending Score). Includes a comparative analysis highlighting why DBSCAN struggles with varying cluster densities, and implements **PCA (Principal Component Analysis)** to reduce dimensions and cleanly visualize the 4D segments in 2D.
 
 ---
 
