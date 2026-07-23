@@ -11,7 +11,7 @@ This sub-module focuses on mastering **PyTorch**, one of the industry's leading 
 
 * **🧱 PyTorch Fundamentals**
   * **File:** [01-PyTorch/00_Pytorch_Fundamentals.ipynb](01-PyTorch/00_Pytorch_Fundamentals.ipynb)
-  * **Overview:** The foundational building blocks of deep learning. This notebook covers PyTorch environment setup, verifying GPU (CUDA) availability, and mastering **Tensors** (scalars, vectors, matrices, and n-dimensional tensors). It also explores essential tensor attributes like `.shape` and `.ndim`.
+  * **Overview:** The foundational building blocks of PyTorch. This notebook covers environment setup, verifying GPU (CUDA) availability, and mastering **Tensors** (scalars, vectors, matrices, and n-dimensional tensors). It also explores essential tensor attributes like `.shape`, `.ndim`, `.dtype`, and `.device`, along with random tensor generation.
 
 ## 🎯 Core Concepts (Upcoming)
 
