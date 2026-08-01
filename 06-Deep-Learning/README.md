@@ -7,7 +7,7 @@ Welcome to the Deep Learning module! This directory covers artificial neural net
 ### 🔥 [01 - PyTorch](01-PyTorch)
 *Foundational tensor manipulation, GPU computing, and framework mechanics.*
 
-* **🧱 PyTorch Fundamentals:** Comprehensive guide to tensor creation, metadata inspection (`shape`, `dtype`, `device`), math operations, shape manipulation (`reshape`, `view`, `stack`, `permute`), and multi-axis indexing.
+* **🧱 PyTorch Fundamentals:** Complete guide covering tensor math, shape manipulation (`reshape`, `stack`, `permute`), indexing, NumPy conversion, reproducibility, and GPU device-agnostic execution (`.to(device)`).
 
 ---
-*🚧 This module is an active Work in Progress! New deep learning architectures and projects are being added regularly.*
+*🚧 This module is an active Work in Progress! New deep learning architectures, workflows, and projects are added as learning progresses.*
