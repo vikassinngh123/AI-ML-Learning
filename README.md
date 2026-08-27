@@ -17,8 +17,9 @@ This repository is organized sequentially to track my learning milestones. Click
 - **[05-Machine-Learning](05-Machine-Learning)** ⚙️
   - End-to-end predictive modeling workflows. Features custom Scikit-Learn pipelines, hyperparameter tuning (`GridSearchCV` / `RandomizedSearchCV`), ensemble methods, and unsupervised learning (K-Means, DBSCAN, PCA, t-SNE).
   - *Featured Projects:* Customer Segmentation (Mall Customers), Dimensionality Reduction (MNIST Digits), Kaggle House Prices, and US Stock Returns Prediction.
-- **[06-Deep-Learning](06-Deep-Learning)** 🧠
+- **[06-Deep-Learning](./06-Deep-Learning)** 🧠
   - Deep learning neural network architectures and framework mechanics. Focuses on **PyTorch**, tensor operations, GPU acceleration (CUDA), and end-to-end training loops.
+  - *Featured Projects:* Cubic Polynomial Regression, Breast Cancer Binary Classification.
 
 ## 🛠️ Core Tech Stack
 
