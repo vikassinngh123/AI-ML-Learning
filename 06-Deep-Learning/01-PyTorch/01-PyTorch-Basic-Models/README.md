@@ -5,9 +5,9 @@ Welcome to the PyTorch Basic Models directory! This folder contains end-to-end n
 ## 🎯 Approach
 
 Instead of isolating theory, every notebook in this module represents a complete, self-contained pipeline:
-- **Data Generation & Handling:** Creating synthetic datasets, feature transformations, and tensor structuring.
-- **Model Architecture:** Custom neural networks built using `nn.Module`, `nn.Parameter`, and `nn.Linear`.
-- **Optimization Setup:** Defining loss functions (`nn.MSELoss`, `nn.BCEWithLogitsLoss`, etc.) and optimizers (`SGD`, `Adam`).
+- **Data Generation & Handling:** Creating synthetic datasets, feature transformations, tensor structuring, and flattening image data.
+- **Model Architecture:** Custom neural networks built using `nn.Module`, `nn.Parameter`, `nn.Linear`, and `nn.ReLU`.
+- **Optimization Setup:** Defining loss functions (`nn.MSELoss`, `nn.BCEWithLogitsLoss`, `nn.CrossEntropyLoss`) and optimizers (`SGD`, `Adam`).
 - **Training & Evaluation:** Writing explicit training loops, backpropagation (`loss.backward()`), optimization steps (`optimizer.step()`), and evaluation using metrics like accuracy under `torch.inference_mode()`.
 - **Serialization:** Saving and loading model `state_dict()` weights.
 
@@ -24,5 +24,11 @@ Instead of isolating theory, every notebook in this module represents a complete
   - **Architecture:** 4-layer custom neural network built with `nn.Linear` and non-linear activations.
   - **Dataset:** Scikit-Learn Breast Cancer Dataset.
   - **Key Concepts:** PyTorch tensor shape matching, conversion of probability outputs (logits) to binary class predictions, `BCEWithLogitsLoss`, decision thresholding, and calculating percentage accuracy.
+
+- **🔢 Model 03: Multiclass Classification (MNIST Digits)**
+  - **File:** [03_number_classification.ipynb](03_number_classification.ipynb)
+  - **Architecture:** Multi-layer feedforward neural network using `nn.Linear` and `nn.ReLU` activations.
+  - **Dataset:** MNIST (784 flattened pixels representing 28x28 handwritten digit images).
+  - **Key Concepts:** Flattening 2D image arrays, handling 10-class outputs using `nn.CrossEntropyLoss`, extracting predictions with `torch.softmax` and `torch.argmax`, data normalization (scaling pixels 0-1 to prevent dead neurons), and saving model weights.
 
 *🚧 Work in Progress: Additional end-to-end basic architectures will be added here as they are built.*
