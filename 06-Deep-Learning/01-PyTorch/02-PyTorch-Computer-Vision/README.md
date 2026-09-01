@@ -1,32 +1,35 @@
-#  02 - PyTorch Computer Vision
+# 👁️ 02 - PyTorch Computer Vision
 
-Welcome to the **PyTorch Computer Vision** module! This directory documents the progression from baseline feedforward architectures to advanced Convolutional Neural Networks (CNNs) and Transfer Learning for visual recognition tasks.
+Welcome to the **PyTorch Computer Vision** module! This directory documents my progression from baseline feedforward architectures to custom Convolutional Neural Networks (CNNs). Rather than simply optimizing for the highest accuracy, this module focuses on architectural experimentation—scientifically documenting *why* certain models fail and succeed on complex visual tasks.
 
 ---
 
-##  Overview & Objectives
+## 🎯 Overview & Objectives
 
 Computer vision requires models to understand spatial hierarchies, edges, textures, and color relationships across 2D/3D grids of pixels. This section explores:
 * **Data Pipelines & Augmentation:** Implementing custom `torchvision.transforms` (resizing, jittering, flips, normalization) and efficient `DataLoader` streaming.
 * **Spatial Feature Extraction:** Understanding why standard Multi-Layer Perceptrons (MLPs) fail on complex image datasets and transitioning to convolutional architectures (`nn.Conv2d`, `nn.MaxPool2d`).
-* **Evaluation & Diagnostics:** Analyzing classification performance using multiclass metrics, confusion matrices, and tracking loss curves.
+* **Architectural Benchmarking:** Identifying the limits of shallow CNNs trained from scratch and preparing for advanced techniques like Transfer Learning.
 
 ---
 
 ## 📁 Notebooks & Experiments
 
-### 🥪 01. Food-101 MLP Baseline & The Need for CNNs
+### 🥪 01. The MLP Baseline Failure (Food-101)
 * **File:** [01_food101_mlp_baseline.ipynb](01_food101_mlp_baseline.ipynb)
-* **Dataset:** [Food-101](https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/) (101 food categories, resized to $224 \times 224 \times 3$)
+* **Dataset:** Food-101 (101 food categories, resized to 224x224x3)
 * **Architecture:** Multi-Layer Perceptron (MLP) with `nn.Flatten()` and stacked `nn.Linear` + `nn.ReLU` layers.
-* **Key Takeaways & Findings:**
-  * Demonstrated the limitation of feedforward networks on high-dimensional visual data ($150,528$ input features per image).
-  * Flattening 2D images into 1D vectors destroys local spatial structures (pixel neighborhoods).
-  * Proved empirically that standard linear layers fail to generalize on complex color image datasets, establishing the necessity for **Convolutional Neural Networks (CNNs)**.
+* **Result:** ~1% to 4% Accuracy.
+* **Key Finding:** Flattening 2D RGB images into 1D vectors destroys local spatial structures. An MLP mathematically cannot extract 2D hierarchical features (shapes, edges), proving standard feedforward networks are fundamentally unfit for complex vision tasks.
+
+### 🥪 02. The Custom 6-Layer CNN Bottleneck (Food-101)
+* **File:** [02_food101_cnn_model.ipynb](02_food101_cnn_model.ipynb)
+* **Architecture:** Custom 6-layer CNN (TinyVGG variant) using `nn.Conv2d`, `nn.MaxPool2d`, and `nn.ReLU`.
+* **Result:** Plateaus around ~20-30% Accuracy.
+* **Key Finding:** While CNNs successfully preserve spatial awareness, shallow networks trained from scratch lack the parameter capacity and depth required for fine-grained 101-class classification (e.g., distinguishing *beef carpaccio* from *beef tartare*). Additionally, the absence of modern components like `BatchNorm2d` and residual skip connections causes gradient degradation and stalls learning.
 
 ---
 
 ## 🚧 Upcoming Milestones
-* **Model 02: TinyVGG / Custom CNN Architecture** — Building custom convolutional blocks with `nn.Conv2d` and `nn.MaxPool2d`.
-* **Model 03: Custom Dataset Pipeline** — Loading and processing custom uncurated image datasets from disk.
-* **Model 04: Transfer Learning** — Fine-tuning state-of-the-art pre-trained backbones (e.g., EfficientNet, ResNet) on custom vision tasks.
+* **Model 03: The Sandbox Benchmark (CIFAR-10 or 3-Class Subset)** — Building custom CNNs on intermediate datasets to master `BatchNorm2d`, `Dropout`, and hyperparameter tuning mechanics without being blocked by extreme dataset complexity.
+* **Model 04: Transfer Learning** — Returning to the full Food-101 dataset to fine-tune a pre-trained state-of-the-art backbone (e.g., EfficientNet, ResNet) to break past the 80% accuracy barrier.
