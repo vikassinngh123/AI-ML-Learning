@@ -6,26 +6,31 @@
 
 This repository is organized sequentially to track my learning milestones. Click on any folder to explore the notebooks and project implementations:
 
-- **[01-Python-Basics](01-Python-Basics)** 🐍
+- [01-Python-Basics](01-Python-Basics) 🐍
   - Foundations of Python programming, core data types, control flow, functions, and scripting.
-- **[02-OOPs](02-OOPs)** 🏗️
+
+- [02-OOPs](02-OOPs) 🏗️
   - Object-Oriented Programming concepts (Classes, Inheritance, Polymorphism, and Encapsulation) applied to scalable code design.
-- **[03-Numpy](03-Numpy)** 🧮
+
+- [03-Numpy](03-Numpy) 🧮
   - Scientific computing, multidimensional array manipulation, matrix math, and advanced broadcasting mechanics.
-- **[04-EDA](04-EDA)** 📊
+
+- [04-EDA](04-EDA) 📊
   - Exploratory Data Analysis pipelines, data cleaning, handling missing values, and visual storytelling using Pandas, Matplotlib, and Seaborn.
-- **[05-Machine-Learning](05-Machine-Learning)** ⚙️
-  - End-to-end predictive modeling workflows. Features custom Scikit-Learn pipelines, hyperparameter tuning (`GridSearchCV` / `RandomizedSearchCV`), ensemble methods, and unsupervised learning (K-Means, DBSCAN, PCA, t-SNE).
+
+- [05-Machine-Learning](05-Machine-Learning) ⚙️
+  - End-to-end predictive modeling workflows. Features custom Scikit-Learn pipelines, hyperparameter tuning (`GridSearchCV`/`RandomizedSearchCV`), ensemble methods, and unsupervised learning (K-Means, DBSCAN, PCA, t-SNE).
   - *Featured Projects:* Customer Segmentation (Mall Customers), Dimensionality Reduction (MNIST Digits), Kaggle House Prices, and US Stock Returns Prediction.
-- **[06-Deep-Learning](./06-Deep-Learning)** 🧠
-  - Deep learning neural network architectures and framework mechanics. Focuses on **PyTorch**, tensor operations, GPU acceleration (CUDA), and end-to-end training loops.
-  - *Featured Projects:* Cubic Polynomial Regression, Breast Cancer Binary Classification.
+
+- [06-Deep-Learning](06-Deep-Learning) 🧠
+  - Deep learning neural network architectures and framework mechanics. Focuses on **PyTorch**, GPU acceleration (CUDA), and building custom vision pipelines (`torchvision`).
+  - *Featured Projects:* Breast Cancer Binary Classification, MNIST Multiclass Classification, and Custom 6-Layer CNNs on Food-101 (Spatial feature extraction & VRAM bottleneck analysis).
 
 ## 🛠️ Core Tech Stack
 
 - **Language:** Python
 - **Data & Math:** NumPy, Pandas
-- **Machine Learning & Deep Learning:** Scikit-Learn, LightGBM, XGBoost, PyTorch
+- **Machine Learning & Deep Learning:** Scikit-Learn, LightGBM, XGBoost, PyTorch, torchvision
 - **Data Visualization:** Matplotlib, Seaborn
 - **Environments:** Jupyter Notebook, Google Colab
 
