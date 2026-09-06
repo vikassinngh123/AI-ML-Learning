@@ -1,38 +1,189 @@
-# 👁️ 02 - PyTorch Computer Vision
+# 👁️ PyTorch Computer Vision
 
-Welcome to the **PyTorch Computer Vision** module! This directory documents my progression from baseline feedforward architectures to custom Convolutional Neural Networks (CNNs). Rather than simply optimizing for the highest accuracy, this module focuses on architectural experimentation—scientifically documenting *why* certain models fail and succeed on complex visual tasks.
+This folder documents my progression into **computer vision with PyTorch**, starting with a fully connected baseline for image classification and moving toward custom CNN architectures and transfer learning with pretrained models.
 
-## 🎯 Overview & Objectives
-
-Computer vision requires models to understand spatial hierarchies, edges, textures, and color relationships across 2D/3D grids of pixels. This section explores:
-- **Data Pipelines & Augmentation:** Implementing custom `torchvision.transforms` (resizing, jittering, flips, normalization), handling raw directory structures with `ImageFolder`, and efficient `DataLoader` streaming.
-- **Spatial Feature Extraction:** Understanding why standard Multi-Layer Perceptrons (MLPs) fail on complex image datasets and transitioning to convolutional architectures (`nn.Conv2d`, `nn.MaxPool2d`).
-- **Architectural Benchmarking:** Identifying the limits of shallow CNNs trained from scratch, applying regularization, and preparing for advanced techniques like Transfer Learning.
-
-## 📁 Notebooks & Experiments
-
-### 🥪 01. The MLP Baseline Failure (Food-101)
-- **File:** `01_food101_mlp_baseline.ipynb`
-- **Dataset:** Food-101 (101 food categories, resized to 224x224x3)
-- **Architecture:** Multi-Layer Perceptron (MLP) with `nn.Flatten()` and stacked `nn.Linear` + `nn.ReLU` layers.
-- **Result:** ~1% to 4% Accuracy.
-- **Key Finding:** Flattening 2D RGB images into 1D vectors destroys local spatial structures. An MLP mathematically cannot extract 2D hierarchical features (shapes, edges), proving standard feedforward networks are fundamentally unfit for complex vision tasks.
-
-### 🥪 02. The Custom 6-Layer CNN Bottleneck (Food-101)
-- **File:** `02_food101_cnn_model.ipynb`
-- **Architecture:** Custom 6-layer CNN (TinyVGG variant) using `nn.Conv2d`, `nn.MaxPool2d`, and `nn.ReLU`.
-- **Result:** Plateaus around ~20-30% Accuracy.
-- **Key Finding:** While CNNs successfully preserve spatial awareness, shallow networks trained from scratch lack the parameter capacity and depth required for fine-grained 101-class classification (e.g., distinguishing *beef carpaccio* from *beef tartare*). Additionally, the absence of modern components like `BatchNorm2d` and residual skip connections causes gradient degradation and stalls learning.
-
-### 🏞️ 03. The Sandbox Benchmark: Regularization (Intel Landscapes)
-- **File:** `03_intel_image_classification_cnn_sandbox.ipynb`
-- **Dataset:** Intel Image Classification (6 landscape classes, resized to 150x150, streamed directly via Kaggle API)
-- **Architecture:** Custom 4-layer CNN integrating `nn.BatchNorm2d`, `nn.Dropout(p=0.3)`, and L2 Weight Decay. 
-- **Result:** ~82.93% Test Accuracy.
-- **Key Finding:** Applying heavy regularization (Spatial Data Augmentation like flips/rotations, Batch Normalization, and Dropout on the flattened linear input) successfully prevents the model from rapidly overfitting the training data. However, hitting ~83% accuracy highlights the mathematical "roof" of shallow custom CNNs, setting the stage for Transfer Learning.
+The focus is on understanding **why different architectures behave differently on image data**, while experimenting with preprocessing, augmentation, model design, GPU usage, training workflows, and transfer learning.
 
 ---
 
-## 🚧 Upcoming Milestones
+## 🎯 Objectives
 
-- **Model 04: Transfer Learning** — Returning to the full Food-101 dataset (or similar high-complexity tasks) to fine-tune a pre-trained state-of-the-art backbone (e.g., EfficientNet, ResNet) to break past the 90%+ accuracy barrier.
+- Understand how image data is represented and processed in PyTorch
+- Build image-classification pipelines with `torchvision`
+- Compare fully connected networks with convolutional neural networks
+- Design and train custom CNN architectures
+- Experiment with image preprocessing and augmentation
+- Analyze parameter growth and GPU memory usage
+- Learn transfer learning with pretrained CNNs
+- Compare models using accuracy, training time, and parameter counts
+
+---
+
+## 📂 Notebooks
+
+### `01_food101_mlp_baseline.ipynb`
+
+A baseline experiment on the **Food-101** dataset using a multilayer perceptron.
+
+The images are resized and flattened before being passed to fully connected layers. This experiment helps demonstrate an important limitation of fully connected networks for image data: spatial relationships between neighboring pixels are not represented explicitly.
+
+**Concepts explored:**
+
+- Image classification
+- Image preprocessing
+- Flattening image tensors
+- Fully connected neural networks
+- Training and evaluation
+- Limitations of MLPs for image data
+
+---
+
+### `02_food101_cnn_model.ipynb`
+
+Introduces convolutional neural networks for image classification on Food-101.
+
+The experiment moves from flattened image representations to convolution-based feature extraction, allowing the model to learn spatial patterns directly from images.
+
+**Concepts explored:**
+
+- `Conv2d`
+- `MaxPool2d`
+- Feature maps
+- CNN architecture
+- Image augmentation
+- Training and evaluation
+- GPU training
+
+---
+
+### `03_intel_image_classification-cnn_sandbox.ipynb`
+
+Builds a custom CNN for the **Intel Image Classification** dataset.
+
+The model uses multiple convolutional blocks followed by a fully connected classifier.
+
+**Architecture components include:**
+
+- `Conv2d`
+- `ReLU`
+- `BatchNorm2d`
+- `MaxPool2d`
+- `Dropout`
+- Fully connected layers
+
+The experiment also provided practical experience with **GPU memory usage and model parameter growth**.
+
+---
+
+### `04_intel_image_classification_transfer_learning_comparison.ipynb`
+
+Extends the Intel image-classification experiment by comparing the custom CNN against an **ImageNet-pretrained ResNet18**.
+
+The current experiment includes:
+
+- Custom CNN trained from scratch
+- ResNet18 with a frozen pretrained backbone
+- Test accuracy comparison
+- Training-time comparison
+- Trainable parameter comparison
+- Total parameter comparison
+- Training-loss and accuracy visualization
+- Saving trained model weights with `state_dict()`
+
+### Current Results
+
+| Model | Trainable Parameters | Total Parameters | Training Time | Test Accuracy |
+|---|---:|---:|---:|---:|
+| Custom CNN | 11.33M | 11.33M | 18.13 min | 79.70% |
+| ResNet18 — Frozen Backbone | 0.165M | 11.34M | 8.93 min | 90.30% |
+
+> Results are from the current experiment and may vary slightly depending on hardware, runtime, and training conditions.
+
+### Observation
+
+In this experiment, the pretrained ResNet18 achieved higher test accuracy than the custom CNN while updating substantially fewer parameters and requiring less training time.
+
+The experiment is being extended to investigate **partial fine-tuning and full fine-tuning**.
+
+---
+
+## 🧠 Concepts Covered
+
+### Image & Dataset Handling
+
+- `torchvision.datasets.ImageFolder`
+- Image preprocessing
+- Image resizing
+- Center cropping
+- Normalization
+- Data augmentation
+- `DataLoader`
+- Batching and shuffling
+
+### Neural Network Foundations
+
+- Fully connected networks
+- Convolutional layers
+- Feature maps
+- Pooling
+- Activation functions
+- Batch normalization
+- Dropout
+- Loss functions
+- Optimizers
+- Training loops
+- GPU acceleration
+
+### CNNs
+
+- Custom CNN architecture design
+- Convolutional feature extraction
+- Spatial downsampling
+- Classifier design
+- Parameter growth
+- GPU/VRAM considerations
+
+### Transfer Learning
+
+- Pretrained ImageNet models
+- ResNet18
+- Frozen feature extractors
+- Replacing classification heads
+- Partial fine-tuning
+- Full fine-tuning
+
+### Experiment Analysis
+
+- Training loss
+- Training accuracy
+- Test accuracy
+- Training time
+- Trainable parameters
+- Total parameters
+- Model checkpoints
+- Training visualizations
+
+---
+
+## 🔬 Learning Progression
+
+The experiments in this folder follow a progression from basic image classification toward pretrained computer-vision models:
+
+```text
+Image Classification
+        ↓
+Food-101 MLP
+        ↓
+Food-101 CNN
+        ↓
+Custom CNN Architecture
+        ↓
+Intel Image Classification
+        ↓
+Transfer Learning
+        ↓
+Feature Extraction
+        ↓
+Partial Fine-Tuning
+        ↓
+Full Fine-Tuning
