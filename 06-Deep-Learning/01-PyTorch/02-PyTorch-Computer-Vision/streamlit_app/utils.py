@@ -14,27 +14,25 @@ import torchvision.models as model
 from torchvision import transforms
 from PIL import Image
 import streamlit as st
+import os
 
 device="cpu"
-device
 
 #Funtions for loading custom cnn model
-@st.cache_resource
-def custom_cnn_model_loader():
-  class custom_cnn_model(nn.Module):
-    def __init__(self,input_shape,hidden_units,output_shape):
-      super().__init__()
-      self.cnn_block_1=nn.Sequential(
-                                  nn.Conv2d(
+class custom_cnn_model(nn.Module):
+        def __init__(self,input_shape,hidden_units,output_shape):
+            super().__init__()
+            self.cnn_block_1=nn.Sequential(
+                                           nn.Conv2d(
                                             in_channels=input_shape,
                                             out_channels=hidden_units,
                                             kernel_size=3,
                                             stride=1,
                                             padding=1
                                             ),
-                                  nn.ReLU(),
-                                  nn.BatchNorm2d(hidden_units),
-                                  nn.Conv2d(
+                                          nn.ReLU(),
+                                          nn.BatchNorm2d(hidden_units),
+                                          nn.Conv2d(
                                             in_channels=hidden_units,
                                             out_channels=hidden_units,
                                             kernel_size=3,
@@ -46,8 +44,7 @@ def custom_cnn_model_loader():
                                   nn.MaxPool2d(kernel_size=2,
                                                 stride=2)
                                   )
-
-      self.cnn_block_2=nn.Sequential(
+            self.cnn_block_2=nn.Sequential(
                                     nn.Conv2d(
                                             in_channels=hidden_units,
                                             out_channels=hidden_units,
@@ -69,8 +66,7 @@ def custom_cnn_model_loader():
                                     nn.MaxPool2d(kernel_size=2,
                                                   stride=2)
                                     )
-
-      self.classifer=nn.Sequential(
+            self.classifer=nn.Sequential(
                                   nn.Flatten(),
                                   nn.Dropout(p=0.3),
                                   nn.Linear(in_features=hidden_units*37*37,
@@ -79,32 +75,38 @@ def custom_cnn_model_loader():
                                   nn.Linear(in_features=128,
                                             out_features=output_shape)
                                   )
+        def forward(self,x):
+            x=self.cnn_block_1(x)
+            x=self.cnn_block_2(x)
+            x=self.classifer(x)
+            return x
 
-    def forward(self,x):
-        x=self.cnn_block_1(x)
-        x=self.cnn_block_2(x)
-        x=self.classifer(x)
-        return x
 
-  custom_cnn_model=custom_cnn_model(
-                                  input_shape=3,
-                                  hidden_units=64,
-                                  output_shape=6
-                                  ).to(device)
-  custom_cnn_model.load_state_dict(
-    torch.load(
-        "custom_cnn_model.pth",
-        map_location=torch.device(device),
-        weights_only=False
+@st.cache_resource
+def custom_cnn_model_loader():
+    
+    url="https://github.com/vikassinngh123/AI-ML-Learning/releases/download/v1.0/custom_cnn_model.pth"
+    filename="custom_cnn_model.pth"
+    if not os.path.exists(filename):
+        torch.hub.download_url_to_file(url, filename)
+    loaded_model = custom_cnn_model(input_shape=3, hidden_units=10, output_shape=6) 
+    
+    loaded_model.load_state_dict(
+        torch.load(filename, map_location=torch.device(device), weights_only=False)
     )
-   )
-  return custom_cnn_model
+    return loaded_model
 
 #Function for resnet18
 @st.cache_resource
 def resnet18_loader():
-  resnet18=model.resnet18(weights=None)
-  resnet18.fc=nn.Sequential(
+    
+    url="https://github.com/vikassinngh123/AI-ML-Learning/releases/download/v1.0/resnet18_model.pth"
+    filename="resnet18_model.pth"
+    if not os.path.exists(filename):
+        torch.hub.download_url_to_file(url, filename)
+        
+    resnet18=model.resnet18(weights=None)
+    resnet18.fc=nn.Sequential(
                                   nn.Linear(in_features=512,
                                             out_features=256),
                                   nn.ReLU(),
@@ -116,48 +118,46 @@ def resnet18_loader():
                                   nn.Linear(in_features=128,
                                             out_features=6)
                                   ).to(device)
-  resnet18.load_state_dict(
-      torch.load(
+    resnet18.load_state_dict(
+        torch.load(
           "resnet18_model.pth",
           map_location=torch.device(device),
           weights_only=False
       )
   )
-  return resnet18
+    return resnet18
 
 #Function for Image Transform
 def image_transform(uploaded_file,model):
-
     if model=="Custom_CNN":
-      custom_cnn_image_transform=transforms.Compose([
+        custom_cnn_image_transform=transforms.Compose([
           transforms.Resize((150, 150)),
           transforms.ToTensor(),
       ])
-      image = Image.open(uploaded_file).convert('RGB')
-      transformed_image=custom_cnn_image_transform(image)
-      return transformed_image
-
-
+        image = Image.open(uploaded_file).convert('RGB')
+        transformed_image=custom_cnn_image_transform(image)
+        return transformed_image
+    
     else:
-      resnet18_image_transform=transforms.Compose([
-          transforms.Resize((224, 224)),
-          transforms.ToTensor(),
-          transforms.Normalize(mean=[0.485, 0.456, 0.406],
+        resnet18_image_transform=transforms.Compose([
+            transforms.Resize((224, 224)),
+            transforms.ToTensor(),
+            transforms.Normalize(mean=[0.485, 0.456, 0.406],
                               std=[0.229, 0.224, 0.225])
-      ])
-      image = Image.open(uploaded_file).convert('RGB')
-      transformed_image=resnet18_image_transform(image)
+             ])
+        image = Image.open(uploaded_file).convert('RGB')
+        transformed_image=resnet18_image_transform(image)
       return transformed_image
 
 #Function for predicting the classes
 def predict(transformed_image,model):
-  batch_img=transformed_image.unsqueeze(0).to(device)
-  model.eval()
-  with torch.inference_mode():
-    raw_logits=model(batch_img)
-    predicted_index=raw_logits.argmax(dim=1).item()
-    classes=['Buildings','Forest','Glacier','Mountain','Sea','Street']
-
-    predicted_class=classes[predicted_index]
-  return predicted_class
+      batch_img=transformed_image.unsqueeze(0).to(device)
+      model.eval()
+      with torch.inference_mode():
+        raw_logits=model(batch_img)
+        predicted_index=raw_logits.argmax(dim=1).item()
+        classes=['Buildings','Forest','Glacier','Mountain','Sea','Street']
+    
+        predicted_class=classes[predicted_index]
+      return predicted_class
 
