@@ -89,7 +89,7 @@ def custom_cnn_model_loader():
     filename="custom_cnn_model.pth"
     if not os.path.exists(filename):
         torch.hub.download_url_to_file(url, filename)
-    loaded_model = custom_cnn_model(input_shape=3, hidden_units=10, output_shape=6) 
+    loaded_model = custom_cnn_model(input_shape=3, hidden_units=64, output_shape=6) 
     
     loaded_model.load_state_dict(
         torch.load(filename, map_location=torch.device(device), weights_only=False)
