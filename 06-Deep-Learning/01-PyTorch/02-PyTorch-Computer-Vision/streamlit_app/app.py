@@ -38,7 +38,7 @@ if uploaded_file is not None:
     st.image(
         uploaded_file,
         caption="Uploaded Image",
-        use_column_width=True
+        use_container_width=True
     )
 
     transformed_img = image_transform(
