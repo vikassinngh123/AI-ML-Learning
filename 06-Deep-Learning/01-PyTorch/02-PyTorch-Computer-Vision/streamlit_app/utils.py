@@ -20,66 +20,66 @@ device="cpu"
 
 #Funtions for loading custom cnn model
 class custom_cnn_model(nn.Module):
-        def __init__(self,input_shape,hidden_units,output_shape):
-            super().__init__()
-            self.cnn_block_1=nn.Sequential(
-                                           nn.Conv2d(
-                                            in_channels=input_shape,
-                                            out_channels=hidden_units,
-                                            kernel_size=3,
-                                            stride=1,
-                                            padding=1
-                                            ),
-                                          nn.ReLU(),
-                                          nn.BatchNorm2d(hidden_units),
-                                          nn.Conv2d(
-                                            in_channels=hidden_units,
-                                            out_channels=hidden_units,
-                                            kernel_size=3,
-                                            stride=1,
-                                            padding=1
-                                            ),
-                                  nn.ReLU(),
-                                  nn.BatchNorm2d(hidden_units),
-                                  nn.MaxPool2d(kernel_size=2,
-                                                stride=2)
-                                  )
-            self.cnn_block_2=nn.Sequential(
-                                    nn.Conv2d(
-                                            in_channels=hidden_units,
-                                            out_channels=hidden_units,
-                                            kernel_size=3,
-                                            stride=1,
-                                            padding=1
-                                            ),
-                                    nn.ReLU(),
-                                    nn.BatchNorm2d(hidden_units),
-                                    nn.Conv2d(
-                                            in_channels=hidden_units,
-                                            out_channels=hidden_units,
-                                            kernel_size=3,
-                                            stride=1,
-                                            padding=1
-                                            ),
-                                    nn.ReLU(),
-                                    nn.BatchNorm2d(hidden_units),
-                                    nn.MaxPool2d(kernel_size=2,
-                                                  stride=2)
-                                    )
-            self.classifer=nn.Sequential(
-                                  nn.Flatten(),
-                                  nn.Dropout(p=0.3),
-                                  nn.Linear(in_features=hidden_units*37*37,
-                                            out_features=128),
-                                  nn.ReLU(),
-                                  nn.Linear(in_features=128,
-                                            out_features=output_shape)
-                                  )
-        def forward(self,x):
-            x=self.cnn_block_1(x)
-            x=self.cnn_block_2(x)
-            x=self.classifer(x)
-            return x
+    def __init__(self,input_shape,hidden_units,output_shape):
+        super().__init__()
+        self.cnn_block_1=nn.Sequential(
+                                       nn.Conv2d(
+                                        in_channels=input_shape,
+                                        out_channels=hidden_units,
+                                        kernel_size=3,
+                                        stride=1,
+                                        padding=1
+                                        ),
+                                      nn.ReLU(),
+                                      nn.BatchNorm2d(hidden_units),
+                                      nn.Conv2d(
+                                        in_channels=hidden_units,
+                                        out_channels=hidden_units,
+                                        kernel_size=3,
+                                        stride=1,
+                                        padding=1
+                                        ),
+                              nn.ReLU(),
+                              nn.BatchNorm2d(hidden_units),
+                              nn.MaxPool2d(kernel_size=2,
+                                            stride=2)
+                              )
+        self.cnn_block_2=nn.Sequential(
+                                nn.Conv2d(
+                                        in_channels=hidden_units,
+                                        out_channels=hidden_units,
+                                        kernel_size=3,
+                                        stride=1,
+                                        padding=1
+                                        ),
+                                nn.ReLU(),
+                                nn.BatchNorm2d(hidden_units),
+                                nn.Conv2d(
+                                        in_channels=hidden_units,
+                                        out_channels=hidden_units,
+                                        kernel_size=3,
+                                        stride=1,
+                                        padding=1
+                                        ),
+                                nn.ReLU(),
+                                nn.BatchNorm2d(hidden_units),
+                                nn.MaxPool2d(kernel_size=2,
+                                              stride=2)
+                                )
+        self.classifer=nn.Sequential(
+                              nn.Flatten(),
+                              nn.Dropout(p=0.3),
+                              nn.Linear(in_features=hidden_units*37*37,
+                                        out_features=128),
+                              nn.ReLU(),
+                              nn.Linear(in_features=128,
+                                        out_features=output_shape)
+                              )
+    def forward(self,x):
+        x=self.cnn_block_1(x)
+        x=self.cnn_block_2(x)
+        x=self.classifer(x)
+        return x
 
 
 @st.cache_resource
@@ -105,7 +105,7 @@ def resnet18_loader():
     if not os.path.exists(filename):
         torch.hub.download_url_to_file(url, filename)
         
-    resnet18=model.resnet18(weights=None)
+    resnet18=models.resnet18(weights=None)
     resnet18.fc=nn.Sequential(
                                   nn.Linear(in_features=512,
                                             out_features=256),
