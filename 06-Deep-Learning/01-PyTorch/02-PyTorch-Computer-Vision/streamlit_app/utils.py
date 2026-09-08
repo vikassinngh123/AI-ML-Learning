@@ -133,11 +133,10 @@ def image_transform(uploaded_file,model):
         custom_cnn_image_transform=transforms.Compose([
           transforms.Resize((150, 150)),
           transforms.ToTensor(),
-      ])
+         ])
         image = Image.open(uploaded_file).convert('RGB')
         transformed_image=custom_cnn_image_transform(image)
         return transformed_image
-    
     else:
         resnet18_image_transform=transforms.Compose([
             transforms.Resize((224, 224)),
@@ -147,17 +146,17 @@ def image_transform(uploaded_file,model):
              ])
         image = Image.open(uploaded_file).convert('RGB')
         transformed_image=resnet18_image_transform(image)
-      return transformed_image
+        return transformed_image
 
 #Function for predicting the classes
 def predict(transformed_image,model):
-      batch_img=transformed_image.unsqueeze(0).to(device)
-      model.eval()
-      with torch.inference_mode():
+    batch_img=transformed_image.unsqueeze(0).to(device)
+    model.eval()
+    with torch.inference_mode():
         raw_logits=model(batch_img)
         predicted_index=raw_logits.argmax(dim=1).item()
         classes=['Buildings','Forest','Glacier','Mountain','Sea','Street']
-    
+          
         predicted_class=classes[predicted_index]
-      return predicted_class
+        return predicted_class
 
