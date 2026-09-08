@@ -105,7 +105,7 @@ def resnet18_loader():
     if not os.path.exists(filename):
         torch.hub.download_url_to_file(url, filename)
         
-    resnet18=models.resnet18(weights=None)
+    resnet18=model.resnet18(weights=None)
     resnet18.fc=nn.Sequential(
                                   nn.Linear(in_features=512,
                                             out_features=256),
