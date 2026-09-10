@@ -1,28 +1,28 @@
 # 🧠 06 - Deep Learning
 
-Welcome to the Deep Learning module! This directory covers artificial neural networks, deep learning frameworks, and advanced AI architectures.
+Welcome to the Deep Learning module! This directory tracks my journey into artificial neural networks, computer vision, and deploying ML models to the web.
 
 ## 📁 Sub-Modules & Projects
 
 ## 🔥 [01 - PyTorch](01-PyTorch)
 
-*Foundational tensor manipulation, GPU computing, and framework mechanics.*
+*Learning tensor math, GPU computing, and how deep learning frameworks actually work under the hood.*
 
-- 🧱 **PyTorch Fundamentals:** Complete guide covering tensor math, shape manipulation (`reshape`, `stack`, `permute`), indexing, NumPy conversion, reproducibility, and GPU device-agnostic execution (`.to(device)`).
+- 🧱 **PyTorch Fundamentals:** Getting comfortable with tensor math, reshaping matrices, and running code on the GPU.
+- 📈 **PyTorch Basic Models:** Building my first neural networks entirely from scratch.
+  - Wrote custom architectures using `nn.Module` and built my own training loops with backpropagation.
+  - *Projects:*
+    - *Cubic Polynomial Regression* (Predicting continuous values)
+    - *Breast Cancer Prediction* (Binary classification)
+    - *MNIST Digit Recognizer* (Multiclass classification)
 
-- 📈 **PyTorch Basic Models:** End-to-end implementations of custom neural networks from scratch. Includes:
-  - Custom architectures built using `nn.Module`, `nn.Parameter`, and `nn.Linear`.
-  - Explicit training loops with backpropagation and optimization.
-  - *Implemented Models:* 
-    - **Cubic Polynomial Regression** (MSE Loss)
-    - **Binary Classification** for Breast Cancer Prediction (`BCEWithLogitsLoss` and accuracy evaluation)
-    - **Multiclass Classification** on the MNIST dataset (`CrossEntropyLoss`)
+- 👁️ **PyTorch Computer Vision:** Processing image data and building convolutional networks.
+  - *Why standard MLPs fail on images:* Tested a basic Multi-Layer Perceptron and saw firsthand how flattening an image destroys its 2D spatial features.
+  - *Custom 6-Layer CNN:* Built my own architecture using `nn.Conv2d` and `nn.MaxPool2d` to extract image features while managing GPU memory limits.
+  - *Transfer Learning (ResNet-18):* Took a massive, pre-trained model and fine-tuned it on a custom dataset to classify natural landscapes, comparing its accuracy against my custom CNN.
 
-- 👁️ **PyTorch Computer Vision:** Custom vision pipelines and convolutional architectures designed to process complex, high-dimensional RGB image datasets. Includes:
-  - **Data Engineering & Augmentation:** Building robust pipelines utilizing `torchvision.transforms` (ColorJitter, resizing) and optimized `DataLoader` streaming.
-  - **The MLP Baseline Failure (Food-101):** Empirical benchmarking that proves the mathematical destruction of 2D spatial features when flattening images for standard Multi-Layer Perceptrons.
-  - **Custom 6-Layer CNN Architecture:** Deep convolutional networks built using `nn.Conv2d` and `nn.MaxPool2d` to preserve spatial hierarchy, complete with architectural bottleneck analysis (parameter explosions and GPU VRAM constraints).
+- 🌐 **Model Deployment & MLOps:** Taking my models out of Jupyter Notebooks and putting them on the internet!
+  - *Streamlit Web App:* Deployed a live, interactive UI [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://vikas-landscape-classifier.streamlit.app/) where anyone can upload an image and get a real-time prediction.
+  - *Engineering Hurdles Solved:* Figured out how to configure PyTorch to run on free CPU-only cloud instances, used `@st.cache_resource` so the heavy models load instantly from memory, and wrote a script to download the massive 11MB+ `.pth` weight files from GitHub Releases since they were too big to push normally.
 
----
-
-*🚧 This module is an active Work in Progress! New deep learning architectures, workflows, and projects are added as learning progresses.*
+*🚧 This module is an active Work in Progress as I continue learning!*
