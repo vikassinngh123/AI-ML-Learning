@@ -18,7 +18,8 @@ st.set_page_config(page_title="AI Food Vision", page_icon="🍔", layout="center
 page_bg_img = """
 <style>
 [data-testid="stAppViewContainer"] {
-    background: linear-gradient(135deg, #fff5e6 0%, #ffe0b2 100%);
+    background: linear-gradient(135deg, #1e1e1e 0%, #2b2b2b 100%);
+    color: #ffffff; /* Ensures all text is white and readable */
 }
 [data-testid="stHeader"] {
     background: rgba(0,0,0,0);
