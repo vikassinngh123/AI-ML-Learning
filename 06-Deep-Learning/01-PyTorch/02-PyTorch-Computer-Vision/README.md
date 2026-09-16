@@ -1,6 +1,6 @@
 # 👁️ PyTorch Computer Vision
 
-This folder documents my progression into **computer vision with PyTorch**, starting with a fully connected baseline for image classification and moving toward custom CNN architectures and transfer learning with pretrained models. 
+This folder documents my progression into **computer vision with PyTorch**, starting with a fully connected baseline for image classification and moving toward custom CNN architectures and transfer learning with pretrained models.
 
 The focus is on understanding **why different architectures behave differently on image data**, while experimenting with preprocessing, augmentation, model design, GPU usage, training workflows, transfer learning, and web deployment.
 
@@ -15,37 +15,40 @@ The focus is on understanding **why different architectures behave differently o
 - Learn transfer learning with pretrained CNNs (ResNet, EfficientNet)
 - Tackle fine-grained classification problems (100+ classes)
 - Compare models using accuracy, training time, and parameter counts
-- **Deploy trained PyTorch models to an interactive web application using Streamlit**
+- **Deploy trained PyTorch models to interactive web applications using Streamlit**
 
 ## 📂 Notebooks & Applications
 
-### 01_food101_mlp_baseline.ipynb
-A baseline experiment on the **Food-101** dataset using a multilayer perceptron. 
-The images are resized and flattened before being passed to fully connected layers. This experiment helps demonstrate an important limitation of fully connected networks for image data: spatial relationships between neighboring pixels are not represented explicitly. 
+### `01_food101_mlp_baseline.ipynb`
+A baseline experiment on the **Food-101** dataset using a multilayer perceptron.
+The images are resized and flattened before being passed to fully connected layers. This experiment helps demonstrate an important limitation of fully connected networks for image data: spatial relationships between neighboring pixels are not represented explicitly.
 
-### 02_food101_cnn_model.ipynb
-Introduces convolutional neural networks for image classification on Food-101. 
+### `02_food101_cnn_model.ipynb`
+Introduces convolutional neural networks for image classification on Food-101.
 The experiment moves from flattened image representations to convolution-based feature extraction, allowing the model to learn spatial patterns directly from images.
 
-### 03_intel_image_classification-cnn_sandbox.ipynb
-Builds a custom CNN for the **Intel Image Classification** dataset. 
+### `03_intel_image_classification_cnn_sandbox.ipynb`
+Builds a custom CNN for the **Intel Image Classification** dataset.
 The model uses multiple convolutional blocks followed by a fully connected classifier, providing practical experience with **GPU memory usage and model parameter growth**.
 
-### 04_intel_image_classification_transfer_learning_comparison.ipynb
+### `04_intel_image_classification_transfer_learning_comparison.ipynb`
 Extends the Intel image-classification experiment by comparing the custom CNN against an **ImageNet-pretrained ResNet18**. Explores feature extraction by freezing the backbone and only training a custom classification head.
 
-### 05_food101_transfer_learning_EfficientNetB3.ipynb
-Tackles a massive **fine-grained classification** problem (101 distinct food classes) using a pretrained **EfficientNet-B3**. 
-This experiment pushed the limits of free GPU hardware, requiring strategic partial fine-tuning (unfreezing specific `MBConv` blocks), custom classifier design, heavy data augmentation for regularization, and exporting class dictionaries (`.json`) for future web deployment.
+### `05_food101_transfer_learning_EfficientNetB3.ipynb`
+Tackles a massive **fine-grained classification** problem (101 distinct food classes) using a pretrained **EfficientNet-B3**.
+This experiment pushed the limits of free GPU hardware, requiring strategic partial fine-tuning (unfreezing specific MBConv blocks), custom classifier design, heavy data augmentation for regularization, and exporting class dictionaries (`.json`) for future web deployment.
 
-### 🌐 streamlit_app
-Takes the trained models from the previous experiments and deploys them into a live, interactive web application. 
-- 🚀 **Live Demo:** [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://vikas-landscape-classifier.streamlit.app/)
-- Users can upload custom images and get real-time predictions to evaluate model performance in the real world.
+### 🌐 `streamlit_app` (Intel Image Classifier)
+Takes the ResNet18 model trained on the Intel Image dataset and deploys it into a live, interactive web application.
+- 🚀 **Live Demo:** [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://intelligentsia-vision.streamlit.app/)
+
+### 🍔 `food101_streamlit_app` (Food-101 Classifier)
+Takes the fine-tuned EfficientNet-B3 model and deploys it into a dedicated food classification web app featuring a dark culinary UI theme.
+- 🚀 **Live Demo:** [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://food101-efficientnetb3.streamlit.app/)
 
 ## 📊 Current Results
 
-| **Model** | **Dataset (Classes)** | **Test Accuracy** | **Notes** |
+| Model | Dataset (Classes) | Test Accuracy | Notes |
 | :--- | :--- | :--- | :--- |
 | Custom CNN | Intel Image (6) | 79.70% | Trained from scratch |
 | ResNet18 | Intel Image (6) | 90.30% | Frozen Backbone |
@@ -79,18 +82,20 @@ Takes the trained models from the previous experiments and deploys them into a l
 
 The experiments in this folder follow a progression from basic image classification toward complex fine-grained modeling and web deployment:
 
-    Image Classification
-            ↓
-    Food-101 MLP
-            ↓
-    Food-101 CNN
-            ↓
-    Custom CNN Architecture
-            ↓
-    Transfer Learning (Feature Extraction)
-            ↓
-    Partial Fine-Tuning (EfficientNet)
-            ↓
-    Fine-Grained Classification (101 Classes)
-            ↓
-    Live Web Deployment (Streamlit)
+```text
+Image Classification
+        ↓
+Food-101 MLP
+        ↓
+Food-101 CNN
+        ↓
+Custom CNN Architecture
+        ↓
+Transfer Learning (Feature Extraction)
+        ↓
+Partial Fine-Tuning (EfficientNet)
+        ↓
+Fine-Grained Classification (101 Classes)
+        ↓
+Live Web Deployments (Streamlit)
+```
