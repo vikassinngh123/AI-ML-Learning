@@ -8,25 +8,12 @@
 
 Each module contains dedicated notebooks, data pipelines, and architectural breakdowns:
 
-- **[01-Python-Basics](01-Python-Basics)** 🐍  
-  Foundational programming: data structures, control flow, functional programming, and modular scripting.
-
-- **[02-OOPs](02-OOPs)** 🏗️  
-  Object-Oriented Programming (Classes, Inheritance, Polymorphism, and Encapsulation) focused on scalable software design.
-
-- **[03-Numpy](03-Numpy)** 🧮  
-  Scientific computing, multidimensional array manipulation, vectorized operations, and tensor broadcasting mechanics.
-
-- **[04-EDA](04-EDA)** 📊  
-  Exploratory data analysis, automated cleaning pipelines, missing-value imputation, and visual distribution modeling with Pandas, Matplotlib, and Seaborn.
-
-- **[05-Machine-Learning](05-Machine-Learning)** ⚙️  
-  End-to-end predictive modeling workflows utilizing Scikit-Learn pipelines, hyperparameter optimization (`GridSearchCV`, `RandomizedSearchCV`), gradient boosting (`XGBoost`, `LightGBM`), and unsupervised cluster/reduction analysis (K-Means, DBSCAN, PCA, t-SNE).  
-  *Featured Work:* Customer Segmentation, MNIST Dimensionality Reduction, Kaggle House Prices, and US Stock Returns Prediction.
-
-- **[06-Deep-Learning](06-Deep-Learning)** 🧠  
-  Neural network engineering with PyTorch, CUDA-accelerated workflows, data pipelines (`torchvision`), and interactive model deployment.  
-  *Featured Work:* Breast Cancer Classification, MNIST Digit Recognition, Custom Multi-Layer CNNs, Pretrained ResNet-18 Feature Extraction, and Fine-Grained Food-101 Transfer Learning.
+- **[01-Python-Basics](./01-Python-Basics)** 🐍 Foundational programming: data structures, control flow, functional programming, and modular scripting.
+- **[02-OOPs](./02-OOPs)** 🏗️ Object-Oriented Programming (Classes, Inheritance, Polymorphism, and Encapsulation) focused on scalable software design.
+- **[03-Numpy](./03-Numpy)** 🧮 Scientific computing, multidimensional array manipulation, vectorized operations, and tensor broadcasting mechanics.
+- **[04-EDA](./04-EDA)** 📊 Exploratory data analysis, automated cleaning pipelines, missing-value imputation, and visual distribution modeling with Pandas, Matplotlib, and Seaborn.
+- **[05-Machine-Learning](./05-Machine-Learning)** ⚙️ End-to-end predictive modeling workflows utilizing Scikit-Learn pipelines, hyperparameter optimization (`GridSearchCV`, `RandomizedSearchCV`), gradient boosting (`XGBoost`, `LightGBM`), and unsupervised cluster/reduction analysis (K-Means, DBSCAN, PCA, t-SNE). *Featured Work:* Customer Segmentation, MNIST Dimensionality Reduction, Kaggle House Prices, and US Stock Returns Prediction.
+- **[06-Deep-Learning](./06-Deep-Learning)** 🧠 Neural network engineering with PyTorch, CUDA-accelerated workflows, data pipelines (`torchvision`), and interactive model deployment. *Featured Work:* Breast Cancer Classification, MNIST Digit Recognition, Custom Multi-Layer CNNs, Pretrained ResNet-18 Feature Extraction, Fine-Grained Food-101 Transfer Learning, and Object Detection mechanics (R-CNN, YOLO-v1).
 
 ---
 
@@ -39,7 +26,9 @@ Each module contains dedicated notebooks, data pipelines, and architectural brea
 
 ### 2. Interactive Web Apps
 - **Natural Landscape Classifier:** ResNet-18 pipeline deployed on Streamlit Cloud for real-time inference.
-- **Live Demo:** [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://vikas-landscape-classifier.streamlit.app/)
+  - **Live Demo:** [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://vikas-landscape-classifier.streamlit.app/)
+- **Food-101 Classifier:** EfficientNet-B3 model deployed into a dedicated culinary web app featuring a dark UI theme.
+  - **Live Demo:** [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://food101-efficientnetb3.streamlit.app/)
 
 ---
 
@@ -51,6 +40,7 @@ Each module contains dedicated notebooks, data pipelines, and architectural brea
 | **Data & Math** | NumPy, Pandas |
 | **Classical ML** | Scikit-Learn, LightGBM, XGBoost |
 | **Deep Learning** | PyTorch (`torch`, `torch.nn`), `torchvision`, `torchmetrics` |
+| **Computer Vision** | OpenCV, Object Detection Math (IoU, NMS) |
 | **Deployment** | Streamlit, Git, GitHub Releases |
 | **Visualization** | Matplotlib, Seaborn |
 | **Environments** | Jupyter Notebook, Google Colab (T4 GPU), VS Code |
