@@ -4,12 +4,23 @@ Welcome to the **Object Detection** sub-module! This directory is dedicated to u
 
 Rather than building every traditional computer vision algorithm from absolute scratch (e.g., manually coding Selective Search), the focus here is on implementing the **key deep learning concepts**, custom loss functions, and architectural designs that make these models work.
 
+---
+
 ## 📂 Directory Contents
+
+### `01_R_CNN.ipynb`
+A foundational notebook implementing the core pipeline of the R-CNN (Regions with CNN features) architecture.
+- Extracts and parses the Pascal VOC 2007 dataset for specific target classes (e.g., Person, Dog, Car).
+- Applies Selective Search to generate candidate region proposals.
+- Warps proposed regions and maps them to ground-truth boxes using IoU thresholds to create positive/background training samples.
+- Constructs a multi-task deep learning model using a pretrained ResNet-18 backbone with custom classification and bounding box regression heads.
 
 ### `detection_utils.py`
 The foundational math and utility script required for evaluating and filtering bounding box predictions.
 - **Intersection over Union (IoU):** Calculates the overlap between predicted and ground-truth bounding boxes to measure accuracy.
 - **Non-Max Suppression (NMS):** Cleans up overlapping bounding box predictions by filtering out lower-confidence duplicates for the same object.
+
+---
 
 ## 🚀 Roadmap & Key Implementations
 
@@ -17,8 +28,8 @@ This folder will host implementations of the core mechanics behind major object 
 
 ### 1. R-CNN (Regions with CNN features)
 - **Focus:** Understanding the two-stage detector pipeline.
-- **Key Concepts to Implement:** 
-  - Using pre-computed region proposals (via tools like OpenCV's Selective Search).
+- **Key Concepts Implemented:** 
+  - Using pre-computed region proposals (via Selective Search).
   - Warping regions and passing them through a CNN feature extractor.
   - Implementing the final classification and bounding box regression heads.
 
@@ -28,6 +39,8 @@ This folder will host implementations of the core mechanics behind major object 
   - The $S \times S$ grid prediction formatting.
   - The custom YOLO multi-part loss function (coordinate loss, objectness score, no-object penalty, and class probabilities).
   - End-to-end training pipeline mapping images directly to bounding box tensors.
+
+---
 
 ## 🛠️ Tech Stack & Concepts
 - **Frameworks:** PyTorch (`torch`, `torchvision`), OpenCV (for traditional CV tasks like region proposals).
