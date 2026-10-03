@@ -10,10 +10,11 @@ Rather than building every traditional computer vision algorithm from absolute s
 
 ### `01_R_CNN.ipynb`
 A foundational notebook implementing the core pipeline of the R-CNN (Regions with CNN features) architecture.
-- Extracts and parses the Pascal VOC 2007 dataset for specific target classes (e.g., Person, Dog, Car).
-- Applies Selective Search to generate candidate region proposals.
-- Warps proposed regions and maps them to ground-truth boxes using IoU thresholds to create positive/background training samples.
-- Constructs a multi-task deep learning model using a pretrained ResNet-18 backbone with custom classification and bounding box regression heads.
+- **Data Parsing:** Extracts and parses the Pascal VOC 2007 dataset for specific target classes (e.g., Person, Dog, Car).
+- **Region Extraction:** Applies Selective Search to generate candidate region proposals and serializes coordinate metadata to JSON to optimize RAM usage.
+- **Data Pipeline:** Implements a custom, lazy-loading PyTorch `Dataset` and `DataLoader` that dynamically crops, resizes, and applies ImageNet normalization to region tensors.
+- **Target Assignment:** Maps proposed regions to ground-truth boxes using IoU thresholds to create balanced positive and negative (background) training samples.
+- **Model Architecture:** Constructs a multi-task deep learning model using a headless pretrained ResNet-18 backbone with custom dense heads for classification and parameterized bounding box regression (coordinate deltas).
 
 ### `detection_utils.py`
 The foundational math and utility script required for evaluating and filtering bounding box predictions.
@@ -22,26 +23,6 @@ The foundational math and utility script required for evaluating and filtering b
 
 ---
 
-## 🚀 Roadmap & Key Implementations
-
-This folder will host implementations of the core mechanics behind major object detection architectures:
-
-### 1. R-CNN (Regions with CNN features)
-- **Focus:** Understanding the two-stage detector pipeline.
-- **Key Concepts Implemented:** 
-  - Using pre-computed region proposals (via Selective Search).
-  - Warping regions and passing them through a CNN feature extractor.
-  - Implementing the final classification and bounding box regression heads.
-
-### 2. YOLO-v1 (You Only Look Once)
-- **Focus:** Understanding single-stage, grid-based object detection.
-- **Key Concepts to Implement:** 
-  - The $S \times S$ grid prediction formatting.
-  - The custom YOLO multi-part loss function (coordinate loss, objectness score, no-object penalty, and class probabilities).
-  - End-to-end training pipeline mapping images directly to bounding box tensors.
-
----
-
 ## 🛠️ Tech Stack & Concepts
 - **Frameworks:** PyTorch (`torch`, `torchvision`), OpenCV (for traditional CV tasks like region proposals).
-- **Core Math:** Bounding box coordinate transformations (midpoint to corners), intersection area calculation, tensor broadcasting.
+- **Core Math:** Bounding box coordinate transformations (midpoint to corners), coordinate offsets ($t_x, t_y, t_w, t_h$), intersection area calculation, tensor broadcasting.
