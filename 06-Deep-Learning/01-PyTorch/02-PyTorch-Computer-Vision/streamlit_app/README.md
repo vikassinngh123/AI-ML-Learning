@@ -1,40 +1,18 @@
-# 🌿 Natural Image Classifier - Streamlit App
+# 🏔️ Natural Landscape Classifier App (Moved to Standalone Repository)
 
-This folder contains the front-end interface and inference engine for the **Natural Image Classifier**. The application is built using Streamlit and allows users to upload natural landscape images to get real-time predictions using PyTorch models.
+To keep deployment dependencies isolated and maintain a clean production workflow, the live **Natural Landscape Classifier Web Application** has been migrated to its own dedicated repository.
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://vikas-landscape-classifier.streamlit.app/)
+---
 
-## 📂 Folder Structure
+## 🔗 Quick Links
 
-*   **`app.py`**: The main Streamlit application file containing the UI layout, file uploader logic, and result rendering.
-*   **`utils.py`**: A modular script containing the model architecture classes, Streamlit caching functions (`@st.cache_resource`), and image transformation pipelines.
-*   **`requirements.txt`**: The list of Python dependencies required to run the app in the cloud, specifically configured for lightweight CPU inference.
+* 📦 **Standalone App Repository:** [vikassinngh123/landscape-classifier-app](https://github.com/vikassinngh123/landscape-classifier-app)
+* 🚀 **Live Streamlit Deployment:** [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://vikas-landscape-classifier.streamlit.app/)
 
-## ⚙️ How to Run Locally
+---
 
-If you want to run this application on your local machine, follow these steps:
+## 📓 Training Notebooks
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/vikassinngh123/AI-ML-Learning.git
-   ```
-2. **Navigate to the app directory:**
-   ```bash
-   cd AI-ML-Learning/06-Deep-Learning/01-PyTorch/02-PyTorch-Computer-Vision/streamlit_app
-   ```
-3. **Install the dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-4. **Launch the application:**
-   ```bash
-   streamlit run app.py
-   ```
-
-*(Note: The heavy `.pth` model weights are hosted via GitHub Releases to bypass standard repository size limits. The `utils.py` script is configured to automatically download these weights to your local machine the very first time you boot the app!)*
-
-## Models Available
-
-The app compares two different architectures:
-*   **Custom CNN**: A convolutional neural network built and trained entirely from scratch in PyTorch.
-*   **ResNet-18**: A robust transfer learning model, fine-tuned for high-accuracy landscape classification.
+The exploratory notebooks remain available in the parent directory (`02-PyTorch-Computer-Vision/`) as well as in the standalone repository:
+1. `03_intel_image_classification_cnn_sandbox.ipynb` — Custom CNN baseline from scratch
+2. `04_intel_image_classification_transfer_learning_comparison.ipynb` — Pretrained **ResNet-18** transfer learning comparison
