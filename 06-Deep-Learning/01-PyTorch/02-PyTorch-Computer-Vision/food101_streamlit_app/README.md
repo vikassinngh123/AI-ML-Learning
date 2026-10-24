@@ -1,48 +1,20 @@
-# 🍔  Food-101 Classifier
+# 🍱 Food-101 Streamlit App (Moved to Standalone Repository)
 
-Welcome to the **Food-101 Streamlit Application**! This repository hosts a live web application that uses a deep learning model to classify images of food into 101 different categories.
+To keep deployment dependencies isolated and maintain a clean production workflow, the live **Food-101 Classifier Web Application** has been migrated to its own dedicated repository.
 
-## 🚀 Live Demo
-**Try the app here:** [Food-101 Classifier on Streamlit](https://food101-efficientnetb3.streamlit.app)
+---
 
-## 🧠 Model Details
-* **Architecture:** `EfficientNet-B3` (Pretrained on ImageNet)
-* **Custom Head:** A deep classification head (`1536 -> 256 -> 128 -> 101`) to map the extracted features to the 101 specific food classes.
-* **Dataset:** Trained on the classic **Food-101 Dataset** (101,000 images).
+## 🔗 Quick Links
 
-## 📂 Directory Structure
+* 📦 **Standalone App Repository:** [vikassinngh123/food-101-classifier-app](https://github.com/vikassinngh123/food-101-classifier-app)
+* 🚀 **Live Streamlit Deployment:** [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://food101-classifier-vikas.streamlit.app/)
 
-This folder contains the complete deployment package:
+---
 
-* `food101_app.py`: The main Streamlit application script containing the frontend UI (Dark mode configured) and logic.
-* `food101_utils.py`: Contains the core PyTorch inference pipeline, including model loading (via `@st.cache_resource`), image transformations, and the prediction function.
-* `food101_classes.json`: A JSON map containing the 101 human-readable class names.
-* `requirements.txt`: The dependency file specifically configured to download the **CPU-only** wheels of PyTorch to ensure it runs efficiently on Streamlit Community Cloud.
+## 📓 Looking for the Training Notebooks?
 
-## 💻 How to Run Locally
+The exploratory experiments and training pipelines that produced this model remain right here in the parent directory (`02-PyTorch-Computer-Vision/`):
 
-If you want to run this application on your local machine, follow these steps:
-
-1. **Clone the repository and navigate to this folder:**
-   ```bash
-   git clone [https://github.com/vikassinngh123/AI-ML-Learning.git](https://github.com/vikassinngh123/AI-ML-Learning.git)
-   cd AI-ML-Learning/06-Deep-Learning/01-PyTorch/02-PyTorch-Computer-Vision/food101_streamlit_app
-   ```
-
-2. **Install the dependencies:**
-   *(It is recommended to use a virtual environment)*
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Run the Streamlit app:**
-   ```bash
-   streamlit run food101_app.py
-   ```
-
-4. **Open your browser:** The app will automatically open at `http://localhost:8501`.
-
-## 🛠️ Tech Stack
-* **Deep Learning Framework:** PyTorch (`torch`, `torchvision`)
-* **Web Framework:** Streamlit
-* **Image Processing:** Pillow (PIL)
+1. `01_food101_mlp_baseline.ipynb` — Baseline MLP architecture experiments
+2. `02_food101_cnn_model.ipynb` — Custom convolutional neural network baseline
+3. `05_food101_transfer_learning_EfficientNetB3.ipynb` — Final **EfficientNet-B3** transfer learning pipeline (~71% test accuracy across 101 classes)
