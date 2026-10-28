@@ -1,41 +1,70 @@
-# R-CNN Object Detection from Scratch (PyTorch)
+<div align="center">
 
-A modular, ground-up implementation of the classic R-CNN (Region-based Convolutional Neural Network) architecture using PyTorch. This project demonstrates the fundamental mechanics of two-stage object detectors, including Selective Search region proposals, bounding box delta regression, and custom tensor-based loss functions.
+# 🔍 R-CNN Object Detection from Scratch
+### *A Ground-Up PyTorch Implementation of Region-based CNNs*
 
-## 📂 Repository Structure
+[![Python 3.11+](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)](https://pytorch.org/)
+[![OpenCV](https://img.shields.io/badge/OpenCV-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white)](https://opencv.org/)
 
-* **`rcnn_model.py`**: Contains the dual-head `RCNN` class built on a pre-trained (frozen) ResNet-18 backbone. It splits into a classification head (identifying classes) and a regression head (predicting bounding box offsets).
-* **`rcnn_dataset.py`**: Handles the PyTorch `Dataset` and `DataLoader` logic. Responsible for ingesting Pascal VOC images, applying Selective Search proposals, and cropping/resizing regions of interest (RoIs) to 224x224 for the backbone.
-* **`rcnn_detection_utils.py`**: The core mathematics engine. Contains pure PyTorch tensor implementations for:
-  * Bounding box parameterization (calculating Δx, Δy, Δw, Δh)
-  * Delta decoding (transforming predictions back to image coordinates)
-  * Intersection over Union (IoU)
-  * Custom PyTorch Tensor Loss functions (avoiding NumPy to maintain the autograd graph)
-* **`R_CNN.ipynb`**: The main experiment tracker. Contains the end-to-end training loop, loss tracking (Classification vs. Regression), and the final Mean Average Precision (mAP) evaluation script using `torchvision.ops.nms` and `torchmetrics`.
-* **`.gitignore`**: Excludes heavy dataset files (`*.json`) and model weights (`*.pth`) from version control.
+**A modular, from-scratch implementation of the classic R-CNN architecture using PyTorch. This project demonstrates the fundamental mechanics of two-stage object detectors, including Selective Search region proposals, bounding box delta regression, Non-Maximum Suppression (NMS), and custom tensor-based loss functions.**
+
+</div>
+
+---
 
 ## 🧠 Architecture & Methodology
 
-1. **Region Proposals:** Utilizes classical Selective Search to generate ~500 region proposals per image.
-2. **Feature Extraction:** Extracts features from 224x224 cropped proposals using a frozen ResNet-18 `AdaptiveAvgPool2d` output.
-3. **Classification Head:** A linear layer trained with Cross-Entropy Loss to classify proposals into specific foreground classes (`person`, `dog`, `car`) or `background`.
-4. **Regression Head:** A linear layer trained with Mean Squared Error (MSE) Loss on normalized bounding box deltas, strictly masked to only train on foreground proposals.
-5. **Post-Processing:** Applies PyTorch's native Non-Maximum Suppression (NMS) per class to eliminate redundant overlapping bounding boxes.
+This implementation breaks down the R-CNN pipeline into an interpretable, educational workflow trained on a filtered subset of Pascal VOC 2007 (Person, Dog, Car):
+
+1. **Region Proposals:** Utilizes classical Selective Search to generate bounding box proposals per image.
+2. **Feature Extraction:** Extracts features from `224x224` resized crops using a frozen `ResNet-18` backbone.
+3. **Classification Head:** A linear layer trained with Cross-Entropy Loss to classify proposals into foreground classes (`person`, `dog`, `car`) or `background`.
+4. **Regression Head:** A linear layer trained with Mean Squared Error (MSE) Loss on normalized bounding box deltas to refine proposal coordinates.
+5. **Post-Processing & Inference:** Applies bounding box delta refinement and `batched_nms` (IoU thresholding) to eliminate redundant overlapping bounding boxes during inference.
+
+---
+
+## 📂 Repository Structure
+
+| File / Module | Description |
+| :--- | :--- |
+| **`R-CNN.ipynb`** | The main experiment notebook. Contains the data parsing, training loop, evaluation script (mAP), and the visual inference pipeline for testing the model on new images. |
+| **`rcnn_model.py`** | Contains the dual-head R-CNN class built on a pre-trained ResNet-18 backbone. |
+| **`rcnn_dataset.py`** | Handles the PyTorch Dataset logic, Selective Search generation, and RoI cropping/resizing. |
+| **`rcnn_detection_utils.py`** | Pure PyTorch tensor implementations for bounding box math, delta decoding, and Intersection over Union (IoU). |
+| **`detection_utils.py`** | Helper utilities for NMS and box regression. |
+
+---
 
 ## 📊 Performance Baseline
 
-This custom implementation achieves a **~25% mAP@50** on the evaluation set. 
+This custom implementation achieves a **~24.47% mAP@50** on the evaluation set. 
+*Note: For a frozen ResNet-18 backbone utilizing a limited number of Selective Search proposals, this is a mathematically sound baseline that proves the end-to-end pipeline (crop extraction → dual-head inference → delta decoding → batched NMS) functions correctly.*
 
-*Note: For a frozen ResNet-18 backbone utilizing only 500 Selective Search proposals per image, ~25% mAP is a mathematically sound baseline. It proves the end-to-end pipeline (crop extraction -> dual-head inference -> delta decoding -> NMS -> mAP calculation) is functioning correctly.*
+---
 
-## 🚀 How to Run
+## 🚀 Local Quick Start & Testing
 
-1. Clone the repository and install dependencies (`torch`, `torchvision`, `torchmetrics`, `numpy`).
-2. Ensure you have the required proposal datasets (`train_data.json`, `test_data.json`, `rcnn_proposals_data.json`) in the same directory (not included in the repo due to size limits).
-3. Run **`R_CNN.ipynb`** cell-by-cell to instantiate the dataset loaders, train the model across 10 epochs, and evaluate the final mAP score.
+**1. Clone the repository and install dependencies:**
+```bash
+git clone [https://github.com/vikassinngh123/AI-ML-Learning.git](https://github.com/vikassinngh123/AI-ML-Learning.git)
+cd AI-ML-Learning/06-Deep-Learning/01-PyTorch/03-PyTorch-Object-Detection/01_rcnn
+pip install torch torchvision torchmetrics opencv-python selectivesearch seaborn
+```
 
-## 🛠️ Future Improvements
+**2. Prepare the datasets:**
+Ensure you have the required JSON data files (`train_data.json`, `test_data.json`, `rcnn_proposals_data.json`) in the root directory.
 
-* **Unfreeze Backbone Layers:** Fine-tune `layer4` of the ResNet-18 backbone with a small learning rate (`1e-5`) to specialize the convolutional filters for Pascal VOC objects.
-* **Loss Weighting:** Add a scaling multiplier (e.g., `5.0 * bbox_loss`) to balance the gradient magnitudes between the classification and regression heads.
-* **Proposal Density:** Increase Selective Search proposals from 500 to 2,000 per image to raise the theoretical recall ceiling for small and occluded objects.
+**3. Run Inference on a Test Image:**
+Open `R-CNN.ipynb` and run the bottom cells to test the model on custom images (e.g., `man_dog_image.jpg`). The pipeline will:
+- Extract Selective Search proposals.
+- Filter out microscopic/garbage boxes (`<50x50`).
+- Resize crops to `224x224` and run them through the ResNet-18 backbone.
+- Apply bounding box regression and `batched_nms` (IoU = 0.15) to render the final detections using OpenCV.
+
+---
+
+<div align="center">
+<b>Built by <a href="https://github.com/vikassinngh123">Vikas Singh</a></b>
+</div>
